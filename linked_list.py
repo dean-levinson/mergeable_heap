@@ -12,22 +12,12 @@ class NodeIterator(object):
             self.cur = v
         else:
             raise Exception(f"{self.__class__.__name__} supports only LinkedList or Node objects")
-        self.first = True
 
     def __next__(self):
-        # todo - refactor this
-        if self.first:
-            self.first = False
-            if self.cur:
-                return self.cur
-            else:
-                raise StopIteration
-
-        if self.cur.next:
-            self.cur = self.cur.next
-            return self.cur
-        else:
+        if not self.cur:
             raise StopIteration
+        cur, self.cur = self.cur, self.cur.next
+        return cur
 
     def __iter__(self):
         return self
