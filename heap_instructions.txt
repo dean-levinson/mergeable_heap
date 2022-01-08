@@ -1,0 +1,15 @@
+MakeHeap
+insert 1
+insert 3
+insert 7
+print
+min
+NoSuchCommand
+ExtractMin
+MakeHeap
+insert 4
+insert 7
+insert 9
+print
+union
+print
