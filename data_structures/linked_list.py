@@ -1,7 +1,7 @@
 from typing import Optional
 import itertools
 
-from node import Node
+from data_structures.node import Node
 from exceptions import ItemNotFound
 
 

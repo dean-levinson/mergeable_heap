@@ -1,7 +1,4 @@
-from typing import Optional
-import itertools
-
-from linked_list import LinkedList
+from data_structures.linked_list import LinkedList
 
 
 class SortedLinkedList(object):

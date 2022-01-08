@@ -1,4 +1,5 @@
-from linked_list import LinkedList
+from exceptions import HeapEmpty
+from data_structures.linked_list import LinkedList
 
 
 class MergeableHeap(object):
@@ -9,8 +10,12 @@ class MergeableHeap(object):
         self.list.insert(item)
 
     def _find_min_node(self):
+        """
+        Iterates over the nodes to find to node with the minimum value.
+        Raises HeapEmpty if the heap is empty.
+        """
         if not self.list.size:
-            raise Exception("Heap is Empty")
+            raise HeapEmpty()
 
         min_node = self.list.head
         for node in self.list:

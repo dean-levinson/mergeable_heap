@@ -1,4 +1,4 @@
-from sorted_linked_list import SortedLinkedList
+from data_structures.sorted_linked_list import SortedLinkedList
 from exceptions import HeapEmpty
 
 
