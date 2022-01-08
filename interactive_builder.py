@@ -72,3 +72,10 @@ class InteraciveBuilder(object):
     @heap_operation
     def print(self):
         print(self.current_heap)
+
+    @heap_operation
+    def print_prev(self):
+        if not self.previous_heap:
+            print("You have initialized only one heap...")
+        else:
+            print(self.previous_heap)

@@ -11,7 +11,9 @@ class ConsoleMenu(object):
             "min": self.builder.min,
             "extractmin": self.builder.extract_min,
             "print": self.builder.print,
+            "printprev": self.builder.print_prev,
             "help": self.display_options_menu,
+            "exit": self.exit
         }
 
     @staticmethod
@@ -26,7 +28,9 @@ Options:
 *) Min
 *) ExtractMin
 *) Print
+*) PrintPrev
 *) Help
+*) Exit
         """
         print(options)
 
@@ -54,3 +58,8 @@ Options:
 
             elif command:
                 print("Invalid input. Run 'Help' for more information")
+
+    @staticmethod
+    def exit():
+        print("Goodbye :)")
+        exit(0)
