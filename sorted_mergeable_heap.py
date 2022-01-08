@@ -1,5 +1,5 @@
 from sorted_linked_list import SortedLinkedList
-
+from exceptions import HeapEmpty
 
 class SortedMergeableHeap(object):
     def __init__(self):
@@ -10,7 +10,7 @@ class SortedMergeableHeap(object):
 
     def min(self):
         if not self.sorted_list.size:
-            raise Exception("List is empty")
+            raise HeapEmpty()
 
         return self.sorted_list.head.value
 

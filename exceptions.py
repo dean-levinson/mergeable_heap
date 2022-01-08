@@ -1,0 +1,2 @@
+class HeapEmpty(Exception):
+    pass
