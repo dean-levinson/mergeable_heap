@@ -6,6 +6,10 @@ class SortedMergeableHeap(object):
     def __init__(self):
         self.sorted_list = SortedLinkedList()  # Sorted doubly-linked list
 
+    @property
+    def size(self):
+        return self.sorted_list.size
+
     def insert(self, item):
         self.sorted_list.insert(item)
 

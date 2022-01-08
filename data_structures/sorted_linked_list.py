@@ -24,10 +24,13 @@ class SortedLinkedList(object):
         """
         for node in self.list:
             if item <= node.value:
+                # print(f"{node.value}")
                 self.list.insert_before(node, item)
                 return
         else:
             self.list.insert_right(item)
+
+        # print(self)
 
     def search(self, item):
         return self.list.search(item)

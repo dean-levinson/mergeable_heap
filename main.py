@@ -1,14 +1,11 @@
 from interactive_builder import InteraciveBuilder
-from console_menu import ConsoleMenu
+from runners import ConsoleRunner, FileRunner
 from data_structures.sorted_mergeable_heap import SortedMergeableHeap
 from data_structures.mergeable_heap import MergeableHeap
 from data_structures.disjoint_mergeable_heap import DisjointMergeableHeap
 
 
-def parse_commands_from_file(file_path):
-    with open(file_path, "rb") as fp:
-        data = fp.read()
-    commands = data.split()
+FILE_PATH = "heap_instructions.txt"
 
 
 def choose_heap():
@@ -37,7 +34,7 @@ def from_console():
         prompt = """
 Choose one of the following options - 
     1) From console
-    2) From path - "./heap_instructions"
+    2) From path - "./heap_instructions.txt"
 
 Enter your choice here: """
         choice = input(prompt)
@@ -50,12 +47,14 @@ Enter your choice here: """
 def main():
     heap_cls = choose_heap()
     should_forbid_jointed_items = bool(heap_cls == DisjointMergeableHeap)
+    builder = InteraciveBuilder(heap_cls, should_forbid_jointed_items)
     if from_console():
-        cm = ConsoleMenu(InteraciveBuilder(heap_cls, should_forbid_jointed_items))
-        cm.loop()
+        runner = ConsoleRunner(builder)
+        runner.loop()
 
     else:
-        pass
+        runner = FileRunner(builder)
+        runner.run_commands_from_file(FILE_PATH)
 
 
 if __name__ == '__main__':
