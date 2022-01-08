@@ -2,6 +2,7 @@ from interactive_builder import InteraciveBuilder
 from console_menu import ConsoleMenu
 from data_structures.sorted_mergeable_heap import SortedMergeableHeap
 from data_structures.mergeable_heap import MergeableHeap
+from data_structures.disjoint_mergeable_heap import DisjointMergeableHeap
 
 
 def parse_commands_from_file(file_path):
@@ -14,7 +15,7 @@ def choose_heap():
     heap_dict = {
         "1": SortedMergeableHeap,
         "2": MergeableHeap,
-        # "3": DisjointMergeableHeap,
+        "3": DisjointMergeableHeap,
     }
     while True:
         prompt = """
@@ -48,8 +49,9 @@ Enter your choice here: """
 
 def main():
     heap_cls = choose_heap()
+    should_forbid_jointed_items = bool(heap_cls == DisjointMergeableHeap)
     if from_console():
-        cm = ConsoleMenu(InteraciveBuilder(heap_cls))
+        cm = ConsoleMenu(InteraciveBuilder(heap_cls, should_forbid_jointed_items))
         cm.loop()
 
     else:
