@@ -1,6 +1,7 @@
 from sorted_linked_list import SortedLinkedList
 from exceptions import HeapEmpty
 
+
 class SortedMergeableHeap(object):
     def __init__(self):
         self.sorted_list = SortedLinkedList()  # Sorted doubly-linked list
@@ -18,6 +19,12 @@ class SortedMergeableHeap(object):
         ret = self.min()
         self.sorted_list.delete_node(self.sorted_list.head)
         return ret
+
+    def union(self, other_heap):
+        new_list = SortedLinkedList()
+        while True:
+            my_node = self.sorted_list.head
+            other_node = self.sorted_list.head
 
     def __str__(self):
         return str(self.sorted_list)

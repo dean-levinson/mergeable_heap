@@ -21,6 +21,10 @@ class SortedLinkedList(object):
         return self.list.size
 
     def insert(self, item):
+        """
+        Iterates over the nodes.
+        when find a node with bigger value then the item, inserts the item before that node and returns.
+        """
         for node in self.list:
             if item <= node.value:
                 self.list.insert_before(node, item)
@@ -43,10 +47,10 @@ class SortedLinkedList(object):
     def __getitem__(self, index):
         return self.list.__getitem__(index)
 
-    # def __repr__(self):
-    #     return f"<{self.__class__.__name__} values={{" + ", ".join([str(node.value) for node in iter(self)]) + "}>"
-
     def __str__(self):
+        """
+        Iterates over the list and returns string representation of the list values.
+        """
         return "SortedLinkedList([" + ", ".join([str(node.value) for node in iter(self)]) + "])"
 
 

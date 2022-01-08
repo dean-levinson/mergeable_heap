@@ -2,9 +2,14 @@ from typing import Optional
 import itertools
 
 from node import Node
+from exceptions import ItemNotFound
 
 
 class NodeIterator(object):
+    """
+    Iterates over the nodes (by using node.next) until node.next == None.
+    Supports LinkedList obj and Node obj.
+    """
     def __init__(self, v):
         if isinstance(v, LinkedList):
             self.cur = v.head
@@ -30,6 +35,9 @@ class LinkedList(object):
         self.size = 0
 
     def insert_node_right(self, node):
+        """
+        Inserts the given node to the right side of the list. changes self.tail and self.size accordingly.
+        """
         if not self.head:
             self.head = node
         node.prev = self.tail
@@ -41,6 +49,9 @@ class LinkedList(object):
         self.size += 1
 
     def insert_node_left(self, node):
+        """
+        Inserts the given node to the left side of the list. changes self.head and self.size accordingly.
+        """
         if not self.tail:
             self.tail = node
         node.next = self.head
@@ -52,7 +63,10 @@ class LinkedList(object):
         self.size += 1
 
     def insert_node_after(self, existing_node, new_node):
-        # todo: consider add owner attr to Node so we can validate that this node belongs to this list
+        """
+        Inserts new_node after existing_node in the list. Change self.tail and self.size accordingly.
+        Doesn't validate that existing_node belongs to this list - Undefined behaviour.
+        """
 
         if existing_node.next:
             existing_node.next.prev = new_node
@@ -65,8 +79,10 @@ class LinkedList(object):
         self.size += 1
 
     def insert_node_before(self, existing_node, new_node):
-        # todo: consider add owner attr to Node so we can validate that this node belongs to this list
-
+        """
+        Inserts new_node before existing_node in the list. Change self.head and self.size accordingly.
+        Doesn't validate that existing_node belongs to this list - Undefined behaviour.
+        """
         if existing_node.prev:
             existing_node.prev.next = new_node
             new_node.prev = existing_node.prev
@@ -84,6 +100,10 @@ class LinkedList(object):
         self.insert_node_before(node, Node(item))
 
     def extend_list_right(self, other_list):
+        """
+        Append the given list to the right of my list, by concatenating self.tail with other_list.head.
+        Change self.size accordingly - using other_list.size.
+        """
         node = other_list.head
         if not self.head:
             self.head = node.head
@@ -112,6 +132,9 @@ class LinkedList(object):
         self.insert_left(item)
 
     def delete_node(self, node):
+        """
+        Deletes the given node from the list.
+        """
         # Relies on the fact the given node belongs to this list - problem...
         if node.prev:
             node.prev.next = node.next
@@ -126,11 +149,15 @@ class LinkedList(object):
         self.size -= 1
 
     def search(self, item):
+        """
+        Iterates over the nodes until find a node that has the value of item.
+        Raises ItemNotFound Exception if couldn't find such node.
+        """
         for node in iter(self):
             if node.value == item:
                 return node
         else:
-            raise Exception(f"{item} not found")
+            raise ItemNotFound(item)
 
     def __len__(self):
         return self.size
@@ -139,6 +166,13 @@ class LinkedList(object):
         return NodeIterator(self)
 
     def __getitem__(self, index):
+        """
+        Makes the object support indexing. Doesn't support slicing.
+        For example -
+            self[2] will iterate over the first 3 nodes and will return the third one.
+            self[-1] will iterate all over the list and will return the last node (self.tail).
+        Raises IndexError if out of range.
+        """
         assert isinstance(index, int)
         if index > self.size - 1:
             raise IndexError("list index out of range")
@@ -153,6 +187,9 @@ class LinkedList(object):
     #     return f"<{self.__class__.__name__} values={{" + ", ".join([str(node.value) for node in iter(self)]) + "}>"
 
     def __str__(self):
+        """
+        Iterates over the list and returns string representation of the list values.
+        """
         return "LinkedList([" + ", ".join([str(node.value) for node in iter(self)]) + "])"
 
 
